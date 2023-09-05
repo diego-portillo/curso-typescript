@@ -1,7 +1,7 @@
 import { MouseEventHandler, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { RandomFox } from "@/components/RandomFox";
+import { LazyImage } from "@/components/LazyImage";
 
 // generate simple unique id
 const generateId = (): string => {
@@ -13,6 +13,11 @@ const generateId = (): string => {
 
 // random number from 1 to 122
 const random = () => Math.floor(Math.random() * 122) + 1;
+
+type ImageItem = {
+  id: string;
+  url: string;
+};
 
 const Home: NextPage = () => {
   const [images, setImages] = useState<Array<ImageItem>>([]);
@@ -28,11 +33,6 @@ const Home: NextPage = () => {
     ])
   }
   
-  type ImageItem = {
-    id: string;
-    url: string;
-  };
-  
   return (
     <div>
       <Head>
@@ -46,8 +46,16 @@ const Home: NextPage = () => {
         <button onClick={addNewFox}>Add new fox</button>
         {images.map(({ id, url }) => (
           <div className="p-4" key={id}>
-            <RandomFox image={url} />
-          </div>
+          <LazyImage
+            src={url}
+            width="320"
+            height="auto"
+            className="mx-auto rounded-md bg-gray-300"
+            onClick={() => {
+              console.log("test");
+            }}
+          />
+        </div>
         ))}
       </main>
 
