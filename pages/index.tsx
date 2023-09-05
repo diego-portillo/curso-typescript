@@ -44,7 +44,7 @@ const Home: NextPage = () => {
       <main>
         <h1 className="text-3xl font-bold underline">Hello Platzi!</h1>
         <button onClick={addNewFox}>Add new fox</button>
-        {images.map(({ id, url }) => (
+        {images.map(({ id, url }, index) => (
           <div className="p-4" key={id}>
           <LazyImage
             src={url}
@@ -53,6 +53,9 @@ const Home: NextPage = () => {
             className="mx-auto rounded-md bg-gray-300"
             onClick={() => {
               console.log("test");
+            }}
+            onLazyLoad={(img) => {
+              console.log(`Image #${index + 1} cargada. Nodo:`, img);
             }}
           />
         </div>
